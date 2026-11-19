@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Custom Inference Engine · Chat</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="status-dot" id="status-dot" aria-hidden="true"></span>
+      <div>
+        <h1>Inference Engine</h1>
+        <p class="sub" id="status-text" role="status" aria-live="polite">Not connected</p>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" class="ghost" id="new-chat">New chat</button>
+      <button type="button" class="ghost" id="open-settings">Settings</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main class="chat" id="chat" aria-label="Conversation">
+      <div class="empty" id="empty-state">
+        <h2>Your Colab GPU, your UI.</h2>
+        <p>Open <strong>Settings</strong> and paste the API URL + key printed by the Colab notebook.</p>
+      </div>
+    </main>
+
+    <aside class="stats" aria-label="Engine telemetry">
+      <h2>Engine</h2>
+      <dl id="stats-list">
+        <div><dt>Model</dt><dd id="s-model">—</dd></div>
+        <div><dt>GPU</dt><dd id="s-gpu">—</dd></div>
+        <div><dt>Active requests</dt><dd id="s-active">—</dd></div>
+        <div><dt>KV cache usage</dt><dd id="s-kv">—</dd></div>
+        <div><dt>Prefix cache hit</dt><dd id="s-prefix">—</dd></div>
+        <div><dt>CUDA graph replays</dt><dd id="s-graph">—</dd></div>
+        <div><dt>Tokens generated</dt><dd id="s-tokens">—</dd></div>
+        <div><dt>Uptime</dt><dd id="s-uptime">—</dd></div>
+      </dl>
+    </aside>
+  </div>
+
+  <form class="composer" id="composer">
+    <label for="prompt" class="visually-hidden">Message</label>
+    <textarea id="prompt" rows="1" placeholder="Ask the coder model… (Enter to send, Shift+Enter for newline)" required></textarea>
+    <button type="submit" id="send">Send</button>
+    <button type="button" id="stop" class="danger" hidden>Stop</button>
+  </form>
+
+  <dialog id="settings" closedby="any" aria-labelledby="settings-title">
+    <form method="dialog" id="settings-form">
+      <h2 id="settings-title">Connection settings</h2>
+      <label for="cfg-url">API URL</label>
+      <input id="cfg-url" type="url" placeholder="https://xxxx.trycloudflare.com" autocomplete="off" autofocus>
+      <label for="cfg-key">API key</label>
+      <input id="cfg-key" type="password" placeholder="printed by the Colab launcher" autocomplete="off">
+      <label for="cfg-max">Max new tokens</label>
+      <input id="cfg-max" type="number" min="1" max="8192" step="1" value="512">
+      <label for="cfg-system">System prompt</label>
+      <textarea id="cfg-system" rows="3">You are Qwen, created by Alibaba Cloud. You are a helpful coding assistant.</textarea>
+      <p class="hint" id="cfg-result" role="status" aria-live="polite"></p>
+      <div class="row">
+        <button type="button" class="ghost" id="cfg-test">Test connection</button>
+        <span class="spacer"></span>
+        <button value="cancel" class="ghost" formnovalidate>Cancel</button>
+        <button value="save" id="cfg-save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
+

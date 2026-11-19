@@ -1,0 +1,21 @@
+# Secrets
+.env
+.env.*
+
+# Zipped copies / build output
+*.zip
+dist/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

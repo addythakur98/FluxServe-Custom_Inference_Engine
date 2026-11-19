@@ -1,0 +1,8 @@
+# Server-side deps (installed on the GPU box / Colab). torch is preinstalled on Colab.
+fastapi>=0.110
+uvicorn[standard]>=0.29
+transformers>=4.40
+safetensors>=0.4
+huggingface_hub>=0.23
+pyngrok>=7.0   # only needed for tunnel="ngrok"
+
